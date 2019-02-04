@@ -10,6 +10,4 @@
 * To have an inter customer messaging portal for premium members. 
 * Working on it!
 ## Framework and Libraries in mind
-* Bootstrap
-* Vue.js
-* Working on it!
+> Working on it! Stay tuned Divesh
