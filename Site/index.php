@@ -12,6 +12,10 @@
             {
                 font-family : 'Ubuntu', sans-serif;
             }
+            a
+            {
+             text-decoration: none;
+            }
         </style>
     </head>
     <body>
@@ -81,7 +85,11 @@
         </div>
         <div class="main">
             <center>
-                main
+                <?php 
+for ($x = 0; $x <= 10; $x++) {
+    echo "The number is: $x <br>";
+} 
+?>
             </center>
         </div>
         <div class="sign">
