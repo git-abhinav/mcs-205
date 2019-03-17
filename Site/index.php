@@ -84,12 +84,13 @@
             </center>
         </div>
         <div class="main">
+
             <center>
                 <?php 
-for ($x = 0; $x <= 10; $x++) {
-    echo "The number is: $x <br>";
-} 
-?>
+                    for ($x = 1; $x <= 10; $x++) {
+                      echo "<img src=/images/plants/".$x.".jpg height=182 width=182>";
+                    }   
+                ?>
             </center>
         </div>
         <div class="sign">
