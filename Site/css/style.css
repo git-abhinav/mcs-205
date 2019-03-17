@@ -1,0 +1,52 @@
+.top{
+    position: relative;
+    border: 1px solid black;
+    top: 2%;
+    height: 10%;
+}
+.bottom{
+    position: fixed;
+    border: 1px solid black;
+    bottom: 2%;
+    left: 2%;
+    right: 2%;
+    height: 10%;
+}
+.right{
+    position: fixed;
+    top: 21%;
+    height: 66%;
+    right: 2%;
+    width: 10%;
+    border: 1px solid black;
+}
+.left{
+    position: fixed;
+    top: 21%;
+    height: 66%;
+    left: 2%;
+    width: 10%;
+    border: 1px solid black;   
+}
+.main{
+    position: fixed;
+    border: 1px dashed black;
+    top: 22%;
+    left: 14%;
+    right: 14%;
+    bottom: 14%;
+}
+.sign{
+    position: fixed;
+    right: 10%;
+    top:1%;
+    height: 8%;
+    width: 10%;
+    border: 1px solid black;
+}
+a 
+{
+ text-decoration: none;
+ cursor: pointer;
+}
+
