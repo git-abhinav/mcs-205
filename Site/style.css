@@ -15,7 +15,7 @@
 .right{
     position: fixed;
     top: 21%;
-    height: 65%;
+    height: 66%;
     right: 2%;
     width: 12%;
     border: 1px solid black;
@@ -23,7 +23,7 @@
 .left{
     position: fixed;
     top: 21%;
-    height: 65%;
+    height: 66%;
     left: 2%;
     width: 12%;
     border: 1px solid black;   
@@ -49,5 +49,4 @@ a
  text-decoration: none;
  cursor: pointer;
 }
-
 
