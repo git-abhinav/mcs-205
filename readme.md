@@ -1,7 +1,7 @@
 # Website proposal for MCS-205
 #### _Aim: To make a E-Commerce website from scratch as a part of academic assignment_
 #### _By : Abhinav_
-## Name : [PeaceLily.com](#)
+## Name : [PeaceLily.ml](#)
 ## Refering 
 ## _[NurseryLive](https://NurseryLive.com), [Amazon India](https://www.amazon.in/Plants/b?ie=UTF8&node=4297302031)_
 ## Main theme for [PeaceLily.com](#):
