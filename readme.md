@@ -17,7 +17,7 @@
 * To provide decorative materials corner for plants, such as *empty whisky bottles 🍾*, pebbles etc for purchased plants.
 * To provide a list of plants and season specific nutrition chart of purchased plants or seeds.
 * To provide a share guide along with the purchased plants.
-## Types Of accounts on PeaceLily.com 
+## Types Of accounts on PeaceLily.ml
 > More features in premium than regular and check-out.
 1. Premium account
 2. Regular account
