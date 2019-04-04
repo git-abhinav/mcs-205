@@ -1,10 +1,10 @@
 # Website proposal for MCS-205
 #### _Aim: To make a E-Commerce website from scratch as a part of academic assignment_
 #### _By : Abhinav_
-## Name : [PeaceLily.ml](#)
+## Name : [PeaceLily.ml](PeaceLily.ml)
 ## Refering 
 ## _[NurseryLive](https://NurseryLive.com), [Amazon India](https://www.amazon.in/Plants/b?ie=UTF8&node=4297302031)_
-## Main theme for [PeaceLily.ml](#):
+## Main theme for [PeaceLily.ml](PeaceLily.ml):
 * To sell plants, with and without pots.
 * To sell pots, containers, used wine and whisky bottles, pebbles.
 * To sell manure and fertilizers like NPK 20-20-20.
