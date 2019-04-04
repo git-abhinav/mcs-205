@@ -1,0 +1,56 @@
+.top
+{
+    /*position: relative;*/
+    /*border: 1px solid black;*/
+    top: 2%;
+    height: 10%;
+}
+.bottom{
+    /*border: 1px solid black;*/
+    position: relative;
+    float: bottom;
+    bottom: 1%;
+    left: 2%;
+    right: 2%;
+    height: 10%;
+}
+.left{
+    top: 25%;
+    height: 65%;
+    left: 2%;
+    width: 12%;
+    /*border: 1px solid black;   */
+}
+.right{
+    margin-left: 90%;
+    position: absolute;
+    /*position: top;*/
+    top: 19%;
+    height: 65%;
+    right: 2%;
+    width: 12%;
+    /*border: 1px solid black;*/
+}
+.main{
+    position: absolute;
+    border: 1px dashed black;
+    top: 22%;
+    left: 14%;
+    right: 14%;
+    width: 70%;
+    bottom: 16%;
+}
+.sign{
+    position: absolute;
+    right: 16%;
+    top:2%;
+    height: 8%;
+    width: 10%;
+    /*border: 1px solid black;*/
+}
+a 
+{
+ text-decoration: none;
+ cursor: pointer;
+}
+

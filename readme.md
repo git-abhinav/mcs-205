@@ -4,7 +4,7 @@
 ## Name : [PeaceLily.ml](#)
 ## Refering 
 ## _[NurseryLive](https://NurseryLive.com), [Amazon India](https://www.amazon.in/Plants/b?ie=UTF8&node=4297302031)_
-## Main theme for [PeaceLily.com](#):
+## Main theme for [PeaceLily.ml](#):
 * To sell plants, with and without pots.
 * To sell pots, containers, used wine and whisky bottles, pebbles.
 * To sell manure and fertilizers like NPK 20-20-20.
@@ -25,3 +25,7 @@
 ## Framework and Technologies to be used
 * Server-Side : PHP(generate dynamic page content, sends and receives cookies, well documented and tested code readily  available)
 * For UI - Bootstrap(ease of use, well documented code readily available)
+
+## Security measures 
+* This site has HTTPS.
+* Runs through tunneling provided through cloudfare.
