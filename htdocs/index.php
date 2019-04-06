@@ -134,7 +134,8 @@
                             else 
                             {
                                 echo '
-                                    <img src = "http://flarrio.com/wp-content/uploads/2016/05/403-Forbidden-Error.png">
+                                    <h1> Firt get the session from the server </h1>
+                                    <img src = "/403-Forbidden-Error.png">
                                 ';
                             }
                         }
@@ -170,12 +171,8 @@
                         {
                             echo "<h1>Login credentials are correct</h1>";
                             echo "<h1>Creating session on the server <h1>";
-                            // set($_SESSION['log-in-user']);
                             $correct_username = $u;
-                            
                             $_SESSION['log-in-user'] = $u;
-    
-
                             echo '
                                 <a href = "https://peacelily.ml/?query=view-portal"> Click for client area </a>
                             ';  
@@ -184,8 +181,18 @@
                         else{
                             echo "Incorrect username or password";
                         }
-                        // $q = "select * from username_password where username = ".$_POST['username']." and password = ".$_POST['password']
-                        // echo $q;
+                    }
+
+                    if($_REQUEST['btn_submit']=="Add products")
+                    {
+                        include("view-portal.php");
+                        print "You pressed Button 1";
+
+                    }
+                    else if($_REQUEST['btn_submit']=="View Orders")
+                    {
+                        include("view-portal.php");
+                        print "You pressed Button 2";
                     }
 
                 ?>
@@ -208,6 +215,8 @@
                 else 
                 {    
                     echo "<h2> 𝓗𝓲 ".str_repeat('&nbsp;', 2).$_SESSION['log-in-user']."</h2>";
+                    echo '<a href = "https://peacelily.ml/?query=view-portal"> View Portal </a>';
+                    echo '<br> <br>';
                     echo '<a href = "https://peacelily.ml/?query=log-out"> 
                             Log Out
                           </a>';
