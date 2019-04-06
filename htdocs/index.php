@@ -182,17 +182,49 @@
                             echo "Incorrect username or password";
                         }
                     }
-
                     if($_REQUEST['btn_submit']=="Add products")
                     {
                         include("view-portal.php");
-                        print "You pressed Button 1";
-
+                        echo "<br>";
+                        echo "<h2> Enter new product details </h2> ";
+                        echo "<br>"; 
+                        echo '
+                                    <form action = "index.php" method = "POST">
+                                        Enter plant name : <input type = "text" name = "plant_name" required = TRUE>
+                                        <br>
+                                        Enter plant price : <input type = "number" name = "plant_price" requiered = TRUE>
+                                        <br>
+                                        <input type = "text" name = "seller_name" value = '.$_SESSION['log-in-user'].' hidden = TRUE>
+                                        Enter link of your image : <input type = "text" name = "image_url">
+                                        <br>
+                                        <input type="submit" value="Submit">
+                                    </form>
+                            ';
                     }
                     else if($_REQUEST['btn_submit']=="View Orders")
                     {
                         include("view-portal.php");
                         print "You pressed Button 2";
+                    }
+
+                    if(isset($_POST['plant_name']))
+                    {
+                        include("view-portal.php");
+                        echo $_POST['plant_name'];
+                        echo "<br>";
+                        echo $_POST['plant_price'];
+                        echo "<br>";
+                        echo $_POST['seller_name'];
+                        echo "<br>";
+                        echo '
+                        <img src = '.$_POST['image_url'].'" height="100" width="100">
+                        ';
+                    }
+
+
+                    if(!isset($_GET['query']))
+                    {
+                        echo "This is the home page";
                     }
 
                 ?>

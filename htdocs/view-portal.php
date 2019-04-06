@@ -9,7 +9,7 @@
         )
     )
     {    
-        echo "<h1> Your Account briefings </h1>";
+        echo "<h1> Your Account briefings </h1> <hr>";
         echo '
 
             <form action="./index.php">
