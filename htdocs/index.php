@@ -126,9 +126,10 @@
                         }
                         else if($_GET['query']=='view-portal')
                         {
-                            if(isset($_SESSION['log-in-user']))
+                            if(isset($_SESSION['log-in-user']) && !isset($_SESSION['vip_loged_in']))
                             {
-                                echo "<h1> Greeting of the day - ".$_SESSION['log-in-user']."</h1>";
+                                echo "<hr>";
+                                echo "<h1> Greetings of the day - ".$_SESSION['log-in-user']."</h1>";
                                 include('view-portal.php');
                             }
                             else 
@@ -141,12 +142,31 @@
                         }
                         else if($_GET['query']=='vip-user')
                         {
-                            include("vip.php");
+                            if(!isset($_SESSION['vip_loged_in']))
+                                include("vip.php");
+                            else 
+                            {
+                                echo 
+                                '
+                                    <h2>
+                                        <hr>
+                                        Ask your question here.
+                                        <form action = "index.php" method = POST>
+                                            <input type = "text" name = "process_question" hidden = true value = "yes">
+                                            <input type = "text" name = "question_asked_by" hidden = true value = '.$_SESSION['log-in-user'].'>
+                                            <br>
+                                            <input type = "text" name="question" required = true>
+                                            <br>
+                                            <input type = "submit" value = "Ask">
+                                        </form>        
+                                    <h2>
+                                ';
+                            }
+                            
                         }
                     }
                     if(isset($_POST['process_sign_up']) == "yes")
                     {
-                        // echo "Now process the sign up part";
                         echo '<h1> Creating account </h1> ';
                         echo '<hr>';
                         echo "<h2>"."Username is : ".$_POST['username']."<h2>";
@@ -165,6 +185,7 @@
                         // echo "Now process the sign in part";
                         $u = $_POST['username'];
                         $p = $_POST['password'];
+                        echo "<hr>";
                         echo "<h1> Checking username and password in the database <h1> ";
                         $con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
                         if (mysqli_connect_errno())
@@ -239,9 +260,7 @@
                             echo "<h1>Creating session on the server <h1>";
                             $correct_username = $u;
                             $_SESSION['log-in-user'] = $u;
-                            echo '
-                                Now do something here.
-                            ';  
+                            $_SESSION['vip_loged_in'] = $u;
                             
                         }
                         else{
@@ -265,25 +284,14 @@
                                 </h2>
                             ';                        
                         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    }
+                    else if(isset($_POST['process_question']))
+                    {
+                        echo "<hr>";
+                        echo 'Question is asked by - '.$_POST['question_asked_by'];
+                        echo "<br>";
+                        echo 'Question is - '.$_POST['question'];
+                        echo "<br>";
                     }
                     if($_REQUEST['btn_submit']=="Add products")
                     {
@@ -325,7 +333,8 @@
                         <img src = '.$_POST['image_url'].'" height="100" width="100">
                         ';
                     }
-                    if(!isset($_GET['query']) and !isset($_POST['process-vip']))
+                    $actual_url = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                    if($actual_url == "https://peacelily.ml/")
                     {
                         echo "<hr>";
                         echo "This is the home page";
@@ -351,7 +360,25 @@
                 else 
                 {    
                     echo "<h2> 𝓗𝓲 ".str_repeat('&nbsp;', 2).$_SESSION['log-in-user']."</h2>";
-                    echo '<a href = "https://peacelily.ml/?query=view-portal"> View Portal </a>';
+                    if(!isset($_SESSION['vip_loged_in']))
+                    {    
+                        echo 
+                            '
+                                <a href = "https://peacelily.ml/?query=view-portal"> 
+                                    <font style = "color: green">  
+                                        View Portal 
+                                    </font> 
+                                </a>
+                            ';
+                    }
+                    else 
+                    {
+                        echo '  
+                            <font style = "color: green"> 
+                                𝒫𝓇𝑒𝓂𝒾𝓊𝓂
+                            </font>
+                        ';
+                    }
                     echo '<br> <br>';
                     echo '<a href = "https://peacelily.ml/?query=log-out"> 
                             Log Out
@@ -361,6 +388,7 @@
                         if($_GET['query']=="log-out")
                         {
                             // $_SESSION = array();
+                            header('Location: '."https://peacelily.ml");
                             session_destroy();
                         }
                     }

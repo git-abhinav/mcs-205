@@ -22,8 +22,9 @@
                 <input type = "submit" value = "Log-in">
             </form>
             
-            <font color="green"> Else create new </font>
-
+            <font color="green"> Create New </font>
+            <br>
+            <br>
             <form action = "index.php" method = "POST">
                 Username <input type = "password" name = "vip-username" required = true>
                 <br>
