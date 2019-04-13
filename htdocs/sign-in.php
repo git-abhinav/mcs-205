@@ -12,6 +12,7 @@
 			/* margin-left: 5%; */
 		}
 	    </style>    
+        <hr>
         <?php
             echo '
                 <form action = "/index.php" method = "POST">

@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="css/style.css">
         
         <link rel="icon" type="image/gif/png" href="icon/peacelily.png">
-        <link href='http://fonts.googleapis.com/css?family=Ubuntu&subset=cyrillic,latin' rel='stylesheet' type='text/css' />
+        <link href='https://fonts.googleapis.com/css?family=Ubuntu&subset=cyrillic,latin' rel='stylesheet' type='text/css' />
         <style type="text/css" >
             body 
             {
@@ -28,7 +28,7 @@
         ?>
         <h1>
             <center>
-                𝓟𝓮𝓪𝓬𝓮𝓛𝓲𝓵𝔂
+                <a href = "https://peacelily.ml" style = "color: black"> 𝓟𝓮𝓪𝓬𝓮𝓛𝓲𝓵𝔂 </a>
             </center>
         </h1>
         <div class="top">
@@ -66,7 +66,7 @@
                 </h2>
                 <hr>
                 <br>
-                <a href="#"> <b> VIP-Corner </b> </a>
+                <a href="https://peacelily.ml/?query=vip-user"> <b> VIP-Corner </b> </a>
                 <br><br><br>
                 <a href="#"> Problems </a>
                 <br><br><br>
@@ -139,6 +139,10 @@
                                 ';
                             }
                         }
+                        else if($_GET['query']=='vip-user')
+                        {
+                            include("vip.php");
+                        }
                     }
                     if(isset($_POST['process_sign_up']) == "yes")
                     {
@@ -182,23 +186,124 @@
                             echo "Incorrect username or password";
                         }
                     }
+                    else if(isset($_POST['process-vip-sign-in']))
+                    {
+                        echo $_POST['vip-username'];
+                        echo "<br>";
+                        echo $_POST['vip-password'];
+                    }
+                    else if($_POST['process-vip'] == "sign-up")
+                    {
+                        echo "<hr>";
+                        $u = $_POST['vip-username'];
+                        $p = $_POST['vip-password'];
+
+                        $con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+                        if (mysqli_connect_errno())
+							echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                        
+                        $q = "INSERT INTO vip_table(username, password) VALUES(".'"'.$u.'"'.",".'"'.$p.'")';
+                        echo "<h1>"."Account Successfully Created :) "."</h1>";
+                        echo "<h2> Now Try log-in </h2>";
+                        echo "<br>";
+                        mysqli_query($con,$q);
+                        echo '
+                            <h2>
+                                <form action = "index.php" method = "POST">
+                                    Username <input type = "password" name = "vip-username" required = true>
+                                    <br>
+                                    Password <input type = "password" name = "vip-password" required = true>
+                                    <input type = "text" name = "process-vip" value = "sign-in" hidden = true>
+                                    <br><br>
+                                    <input type = "submit" value = "Log-in">
+                                </form>
+                            <h2>
+                        ';
+                    }
+                    else if($_POST['process-vip'] == "sign-in")
+                    {
+                        echo "<hr>";
+
+
+                        // echo "Now process the sign in part";
+                        $u = $_POST['vip-username'];
+                        $p = $_POST['vip-password'];
+                        $con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+                        if (mysqli_connect_errno())
+							echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                        $q = "SELECT * FROM vip_table WHERE username = ".'"'.$u.'"'." and password = ".'"'.$p.'"';
+                        $result = mysqli_query($con, $q);
+                        if(mysqli_num_rows($result)>=1)
+                        {
+                            echo "<h1>Login credentials are correct</h1>";
+                            echo "<h1>Creating session on the server <h1>";
+                            $correct_username = $u;
+                            $_SESSION['log-in-user'] = $u;
+                            echo '
+                                Now do something here.
+                            ';  
+                            
+                        }
+                        else{
+                            echo 
+                            '
+                                <h2>
+                                    <font style = "color: red"> 
+                                        Incorrect username or password
+                                        <br>
+                                        Try again
+                                        <br>
+                                    </font>
+                                    <form action = "index.php" method = "POST">
+                                        Username <input type = "password" name = "vip-username" required = true>
+                                        <br>
+                                        Password <input type = "password" name = "vip-password" required = true>
+                                        <input type = "text" name = "process-vip" value = "sign-in" hidden = true>
+                                        <br><br>
+                                        <input type = "submit" value = "Log-in">
+                                    </form>
+                                </h2>
+                            ';                        
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    }
                     if($_REQUEST['btn_submit']=="Add products")
                     {
                         include("view-portal.php");
                         echo "<br>";
                         echo "<h2> Enter new product details </h2> ";
                         echo "<br>"; 
-                        echo '
+                        echo '  
+                                <div allign = "left">
                                     <form action = "index.php" method = "POST">
-                                        Enter plant name : <input type = "text" name = "plant_name" required = TRUE>
+                                        Enter plant name : <input type = "text" name = "plant_name" required = TRUE style = "margin-left: 4.5%">
                                         <br>
-                                        Enter plant price : <input type = "number" name = "plant_price" requiered = TRUE>
+                                        Enter plant price : <input type = "number" name = "plant_price" requiered = TRUE style = "margin-left: 5%">
                                         <br>
                                         <input type = "text" name = "seller_name" value = '.$_SESSION['log-in-user'].' hidden = TRUE>
                                         Enter link of your image : <input type = "text" name = "image_url">
                                         <br>
                                         <input type="submit" value="Submit">
                                     </form>
+                                </div>
                             ';
                     }
                     else if($_REQUEST['btn_submit']=="View Orders")
@@ -220,10 +325,9 @@
                         <img src = '.$_POST['image_url'].'" height="100" width="100">
                         ';
                     }
-
-
-                    if(!isset($_GET['query']))
+                    if(!isset($_GET['query']) and !isset($_POST['process-vip']))
                     {
+                        echo "<hr>";
                         echo "This is the home page";
                     }
 

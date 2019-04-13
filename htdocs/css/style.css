@@ -33,7 +33,7 @@
 }
 .main{
     position: absolute;
-    border: 1px dashed black;
+    /* border: 1px dashed black; */
     top: 22%;
     left: 14%;
     right: 14%;
