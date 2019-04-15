@@ -188,6 +188,8 @@
                         }
                         else{
                             echo "Incorrect username or password";
+                            echo "</h1>";
+                            include("sign-in.php");
                         }
                     }
                     else if($_POST['process-vip'] == "sign-up")
@@ -235,14 +237,7 @@
                         {
                             echo "<h1>Login credentials are correct</h1>";
                             echo "<h1>Session created on the server<h1>";
-                            echo 
-                                '
-                                    <h3 style = "color: green">    
-                                        Ask your Quesion -
-                                    </h3>
-                                    <br>
-                                    <input type = "text" name = "vip-question" style = "padding: 20px;"> 
-                                ';
+                            header('Location: '."https://peacelily.ml/?query=vip-user");
                             $correct_username = $u;
                             $_SESSION['log-in-user'] = $u;
                             $_SESSION['vip_loged_in'] = $u;
@@ -362,7 +357,7 @@
                                             <img src = '.$links[$index].'
                                             height = "100px" width = "100px">
                                         </a>
-                                        Price: $100
+                                        Price: ₹'.($index*100).'
                                     </div> 
 
 
