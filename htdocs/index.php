@@ -70,7 +70,7 @@
                 <br><br><br>
                 <a href="#"> Problems </a>
                 <br><br><br>
-                <a href="#"> Discussion </a>
+                <a href="https://peacelily.ml/?query=discussion"> Discussion </a>
                 <br><br><br>
                 
                 <hr>
@@ -86,27 +86,7 @@
             </center>
         </div>
         
-        <div class="bottom">
-            <center>
-                <?php
-
-                    function getUserIpAddr()
-                    {
-                        if(!empty($_SERVER['HTTP_CLIENT_IP']))
-                            $ip = $_SERVER['HTTP_CLIENT_IP'];
-                        elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-                            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-                        else
-                            $ip = $_SERVER['REMOTE_ADDR'];
-                        return (string)$ip;
-                    }
-                    $a = getUserIpAddr();
-                    $i = explode(",", $a);
-                    echo "<br> <b> Your IP 😉 : </b>".$i[0]."</br>";
-                ?>
-                PeaceLily &copy; - made with ❤️ by Abhinav 
-            </center>
-        </div>
+        
 
         <div class="main">
             <center>
@@ -156,13 +136,16 @@
                                             <input type = "text" name = "question_asked_by" hidden = true value = '.$_SESSION['log-in-user'].'>
                                             <br>
                                             <input type = "text" name="question" required = true>
-                                            <br>
+                                            <br><br>
                                             <input type = "submit" value = "Ask">
                                         </form>        
                                     <h2>
                                 ';
-                            }
-                            
+                            } 
+                        }
+                        else if($_GET['query'] == "discussion")
+                        {
+                            include("discussion.php");
                         }
                     }
                     if(isset($_POST['process_sign_up']) == "yes")
@@ -206,12 +189,6 @@
                         else{
                             echo "Incorrect username or password";
                         }
-                    }
-                    else if(isset($_POST['process-vip-sign-in']))
-                    {
-                        echo $_POST['vip-username'];
-                        echo "<br>";
-                        echo $_POST['vip-password'];
                     }
                     else if($_POST['process-vip'] == "sign-up")
                     {
@@ -257,7 +234,15 @@
                         if(mysqli_num_rows($result)>=1)
                         {
                             echo "<h1>Login credentials are correct</h1>";
-                            echo "<h1>Creating session on the server <h1>";
+                            echo "<h1>Session created on the server<h1>";
+                            echo 
+                                '
+                                    <h3 style = "color: green">    
+                                        Ask your Quesion -
+                                    </h3>
+                                    <br>
+                                    <input type = "text" name = "vip-question" style = "padding: 20px;"> 
+                                ';
                             $correct_username = $u;
                             $_SESSION['log-in-user'] = $u;
                             $_SESSION['vip_loged_in'] = $u;
@@ -296,9 +281,7 @@
                     if($_REQUEST['btn_submit']=="Add products")
                     {
                         include("view-portal.php");
-                        echo "<br>";
                         echo "<h2> Enter new product details </h2> ";
-                        echo "<br>"; 
                         echo '  
                                 <div allign = "left">
                                     <form action = "index.php" method = "POST">
@@ -306,10 +289,24 @@
                                         <br>
                                         Enter plant price : <input type = "number" name = "plant_price" requiered = TRUE style = "margin-left: 5%">
                                         <br>
-                                        <input type = "text" name = "seller_name" value = '.$_SESSION['log-in-user'].' hidden = TRUE>
+                                        <h2> 
+                                            Category <br>
+                                        </h2>
+                                        <div style = "text-allign: left">
+                                            <input type = "text" name = "seller_name" value = '.$_SESSION['log-in-user'].' hidden = TRUE>
+                                            <input type="radio" name="item_type" value="plants" checked> Plant <br>
+                                            <input type="radio" name="item_type" value="seeds" > Seeds <br>
+                                            <input type="radio" name="item_type" value="plots" > Pots <br>
+                                            <input type="radio" name="item_type" value="compost" > Compost <br>
+                                            <input type="radio" name="item_type" value="perlite" > Perlite <br>
+                                            <input type="radio" name="item_type" value="vermicompost" > Vermicompost <br>
+                                            <input type="radio" name="item_type" value="potting_mix" > Potting Mix <br>
+                                            <input type="radio" name="item_type" value="tools" > Tools <br>
+                                            <br>
+                                        </div>
                                         Enter link of your image : <input type = "text" name = "image_url">
-                                        <br>
-                                        <input type="submit" value="Submit">
+                                        <br><br>
+                                        <input type="submit" value="Add item">
                                     </form>
                                 </div>
                             ';
@@ -338,11 +335,87 @@
                     {
                         echo "<hr>";
                         echo "This is the home page";
+                        echo "<br>";
+                        $products=25;
+                        $links = array(
+                            "https://images-na.ssl-images-amazon.com/images/I/71agbaAe8OL._CR0,204,1224,1224_UX256.jpg",
+                            "https://pics.davesgarden.com/pics/2008/12/15/critterologist/c3972d.jpg",
+                            "https://images-na.ssl-images-amazon.com/images/I/71VGepIWH+L._CR0,204,1224,1224_UX256.jpg",
+                            "https://www.fs.fed.us/wildflowers/beauty/columbines/images/multiple_columbines.jpg",
+                            "https://images-na.ssl-images-amazon.com/images/I/7158e+kRwRL._CR0,204,1224,1224_UX256.jpg",
+                            "https://www.gardenbythesea.org/site/assets/files/2071/mg_4638_nursery_succulents_sm.256x256.jpg",
+                            "https://www.traditionalmedicinals.com/wp-content/uploads/2017/02/TM_PlantSelects_600x600_Licorice-256x256.jpg",
+                            "https://pi.tedcdn.com/r/pf.tedcdn.com/images/playlists/talks-to-celebrate-spring_601287.jpg?quality=89&w=256",
+                            "https://learn.livingdirect.com/wp-content/uploads/2016/03/plant-identifier-app.jpg"
+                        );
+                        $index = rand(1,8);
+                        for($i=0;$i<$products;++$i)
+                        {
+                            $index = rand(0,5);
+                            echo '
+
+
+
+                                    <div style = "height: 120px; border: 1px solid black; width: 100px; float: left; margin-right: 10px; margin-top: 10px">
+
+                                        <a href = "#"> 
+                                            <img src = '.$links[$index].'
+                                            height = "100px" width = "100px">
+                                        </a>
+                                        Price: $100
+                                    </div> 
+
+
+
+
+                            ';
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     }
 
                 ?>
             </center>
         </div>
+
+        <div class="bottom">
+            <center>
+                <?php
+                    if($_SERVER[REQUEST_URI]!="/?query=discussion")
+                    {
+                    function getUserIpAddr()
+                    {
+                        if(!empty($_SERVER['HTTP_CLIENT_IP']))
+                            $ip = $_SERVER['HTTP_CLIENT_IP'];
+                        elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+                            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                        else
+                            $ip = $_SERVER['REMOTE_ADDR'];
+                        return (string)$ip;
+                    }
+                    $a = getUserIpAddr();
+                    $i = explode(",", $a);
+                    echo "<br> <b> Your IP 😉 : </b>".$i[0]."</br>";
+                    echo 'PeaceLily &copy; - made with ❤️ by Abhinav';
+                    }
+                ?>
+            </center>
+        </div>
+
         <div class="sign">
             <center>
                
