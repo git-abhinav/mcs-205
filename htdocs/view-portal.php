@@ -18,7 +18,11 @@
             .str_repeat('&nbsp;', 10).
             '
                 <input type="submit" name="btn_submit" value="View Orders"/>
+
+            '.str_repeat('&nbsp;', 10).'
+                <input type="submit" name="btn_submit" value="Your plants"/>
             </form>
+            
         ';
     }
     else 

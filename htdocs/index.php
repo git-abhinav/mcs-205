@@ -68,7 +68,7 @@
                 <br>
                 <a href="https://peacelily.ml/?query=vip-user"> <b> VIP-Corner </b> </a>
                 <br><br><br>
-                <a href="#"> Problems </a>
+                <a href="https://peacelily.ml/?query=problems"> Problems </a>
                 <br><br><br>
                 <a href="https://peacelily.ml/?query=discussion"> Discussion </a>
                 <br><br><br>
@@ -146,6 +146,14 @@
                         else if($_GET['query'] == "discussion")
                         {
                             include("discussion.php");
+                        }
+                        else if($_GET['query'] == "problems")
+                        {
+                            echo '<hr>';
+                            echo 
+                            '
+                                Problems page.
+                            ';
                         }
                     }
                     if(isset($_POST['process_sign_up']) == "yes")
@@ -311,19 +319,93 @@
                         include("view-portal.php");
                         print "You pressed Button 2";
                     }
+                    else if($_REQUEST['btn_submit'] == "Your plants")
+                    {
+                        include('view-portal.php');
+                        echo '<hr>';
+                        $con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+                        if (mysqli_connect_errno())
+							echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                        $sql = '
+                            SELECT name,price,url 
+                            FROM  plant_table
+                            WHERE added_by =  "'.$_SESSION['log-in-user'].'"
+                        ';
+                        $result = $con->query($sql);
+                        if($result->num_rows > 0)
+                        {
+                            echo 
+                            '
+                                <font style="col:green">
+                                    <div style = "width:60%;height:10%">
+                                        <div style = "width:30%;float:left">
+                                            <font style = "color: green">
+                                                <h3>Name</h3>
+                                            </font>
+                                        </div>
+                                        <div style = "width:35%; text-allign:center;float:left">
+                                            <font style = "color: green">
+                                                <h3>Price</h3>
+                                            </font>
+                                        </div>
+                                        <div style = "width:30%;float:left">
+                                            <font style = "color: green">
+                                                <h3>Link</h3>
+                                            </font>
+                                        </div>
+                                    </div>
+                                </font>
+                                <br>
+                            ';
+                            
+                            while($row = $result->fetch_assoc())
+                            {
+                                echo '
+                                    <div style = "width:60%;height:10%">
+                                        <div style = "width:30%;float:left">
+                                            '.$row['name'].'
+                                        </div>
+                                        <div style = "width:35%; text-allign:center;float:left">
+                                            ₹'.$row['price'].'
+                                        </div>
+                                        <div style = "width:30%;float:left">
+                                            <img src = '.$row['url'].' height = 40px width 40px>
+                                        </div>
+                                    </div>
+                                    <br>
+                                ';
+
+                            }
+                        }
+                        else
+                            echo "No record found";
+                    }
 
                     if(isset($_POST['plant_name']))
                     {
                         include("view-portal.php");
-                        echo $_POST['plant_name'];
-                        echo "<br>";
-                        echo $_POST['plant_price'];
-                        echo "<br>";
-                        echo $_POST['seller_name'];
-                        echo "<br>";
-                        echo '
-                        <img src = '.$_POST['image_url'].'" height="100" width="100">
-                        ';
+                        // echo $_POST['plant_name'];
+                        // echo "<br>";
+                        // echo $_POST['plant_price'];
+                        // echo "<br>";
+                        // echo $_POST['seller_name'];
+                        // echo "<br>";
+                        // echo '<img src = '.$_POST['image_url'].'" height="100" width="100">';
+                        // echo 'Item type is : '.$_POST['item_type'];
+                        // echo '<br><br>';
+                        // echo "Hey Abhinav add new plant to the database";
+                        $con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+                        if (mysqli_connect_errno())
+							echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                        // $q = "SELECT * FROM username_password WHERE username = ".'"'.$u.'"'." and password = ".'"'.$p.'"';
+                        $q = 'INSERT INTO plant_table(name, price, category, url, added_by) VALUES("'.$_POST['plant_name'].'", "'.$_POST['plant_price'].'", "'.$_POST['item_type'].'", "'.$_POST['image_url'].'", "'.$_SESSION['log-in-user'].'")';
+                        // echo $q;
+                        $result = mysqli_query($con, $q);
+                        echo '<font style = "color: green">';
+                        echo $_POST['plant_name']." added, under the name -".$_SESSION['log-in-user'];
+                        echo '<font>';
+
+
                     }
                     $actual_url = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                     if($actual_url == "https://peacelily.ml/")
