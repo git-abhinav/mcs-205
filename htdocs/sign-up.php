@@ -21,7 +21,11 @@
 					<h2> Username  : <input type="text" name="username" required> </h2>
 					<h2> Password : <input type="password" name="password" required> </h2>
                     <input type = "text" name = "process_sign_up" value = "yes" hidden = "true">
-					<input type="submit" value="Submit">
+                    <br>
+                    <input type = "radio" name = "account_type" value = "Customer" checked = TRUE> Customer </input>
+                    <input type = "radio" name = "account_type" value = "Seller"> Seller </input>
+                    <br><br>
+					<input type="submit" value="Sign Up">
 					</center>
 					</form>
 				';

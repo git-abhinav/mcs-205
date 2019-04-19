@@ -22,9 +22,8 @@
         </style>
     </head>
     <body>
-
         <?php
-        $correct_username = "";
+        	$correct_username = "";
         ?>
         <h1>
             <center>
@@ -66,35 +65,31 @@
                 </h2>
                 <hr>
                 <br>
-                <a href="https://peacelily.ml/?query=vip-user"> <b> VIP-Corner </b> </a>
+                <a href="https://peacelily.ml/?query=vip-user"> 
+                	<b> 
+                		VIP-Corner 
+                	</b> 
+                </a>
                 <br><br><br>
                 <a href="https://peacelily.ml/?query=problems"> Problems </a>
                 <br><br><br>
                 <a href="https://peacelily.ml/?query=discussion"> Discussion </a>
                 <br><br><br>
-                
                 <hr>
                     <h2>
                         Buys & Sell
                     </h2>
                 <hr>
-
                 <br><br>
                 <a href="#"> Gravels </a>
                 <br><br><br>
                 <a href="#"> Bottles </a>
             </center>
         </div>
-        
-        
-
         <div class="main">
             <center>
-
-
-
                 <?php
-                    if(isset($_GET['query']))
+                    if(isset($_GET['query']))			//for normal query string selection
                     {
                         if($_GET['query'] == 'sign-up')
                         {
@@ -155,6 +150,22 @@
                                 Problems page.
                             ';
                         }
+                        else if($_GET['query'] == 'orders')
+                        {
+                        	echo "<hr>";
+                        	if($_SESSION['user_type'] == "Customer")
+                        	{
+                        		echo 'Checking your orders';	
+							}
+                        	else
+                        	{
+                        		echo '
+                        			Sign in first
+                        		';
+                        		echo '<br>';
+                        		include("sign-in.php");
+                        	}
+                        }
                     }
                     if(isset($_POST['process_sign_up']) == "yes")
                     {
@@ -166,14 +177,13 @@
                         $con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
                         if (mysqli_connect_errno())
 							echo "Failed to connect to MySQL: " . mysqli_connect_error();
-                        $q = "INSERT INTO username_password(username, password) VALUES(".'"'.$_POST['username'].'"'.",".'"'.$_POST['password'].'"'.")";
+                        $q = "INSERT INTO username_password(username, password, account_type) VALUES(".'"'.$_POST['username'].'"'.",".'"'.$_POST['password'].'", "'.$_POST['account_type'].'")';
                         echo "<h1>"."Account Successfully Created :) "."</h1>";
                         echo "<h2> Now Try log-in </h2>";
                         mysqli_query($con,$q);
                     }
                     else if(isset($_POST['process_sign_in']) == "yes")
                     {
-                        // echo "Now process the sign in part";
                         $u = $_POST['username'];
                         $p = $_POST['password'];
                         echo "<hr>";
@@ -189,6 +199,9 @@
                             echo "<h1>Creating session on the server <h1>";
                             $correct_username = $u;
                             $_SESSION['log-in-user'] = $u;
+                            $row = $result->fetch_assoc();
+                            $_SESSION['user_type'] = $row['account_type'];
+                            echo '<h1>'.$_SESSION['user_type'].'</h1>';
                             echo '
                                 <a href = "https://peacelily.ml/?query=view-portal"> Click for client area </a>
                             ';  
@@ -198,6 +211,7 @@
                             echo "Incorrect username or password";
                             echo "</h1>";
                             include("sign-in.php");
+                            echo "</h1>";
                         }
                     }
                     else if($_POST['process-vip'] == "sign-up")
@@ -281,6 +295,7 @@
                         echo 'Question is - '.$_POST['question'];
                         echo "<br>";
                     }
+
                     if($_REQUEST['btn_submit']=="Add products")
                     {
                         include("view-portal.php");
@@ -380,125 +395,112 @@
                         else
                             echo "No record found";
                     }
-
                     if(isset($_POST['plant_name']))
                     {
                         include("view-portal.php");
-                        // echo $_POST['plant_name'];
-                        // echo "<br>";
-                        // echo $_POST['plant_price'];
-                        // echo "<br>";
-                        // echo $_POST['seller_name'];
-                        // echo "<br>";
-                        // echo '<img src = '.$_POST['image_url'].'" height="100" width="100">';
-                        // echo 'Item type is : '.$_POST['item_type'];
-                        // echo '<br><br>';
-                        // echo "Hey Abhinav add new plant to the database";
                         $con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
                         if (mysqli_connect_errno())
 							echo "Failed to connect to MySQL: " . mysqli_connect_error();
-                        // $q = "SELECT * FROM username_password WHERE username = ".'"'.$u.'"'." and password = ".'"'.$p.'"';
                         $q = 'INSERT INTO plant_table(name, price, category, url, added_by) VALUES("'.$_POST['plant_name'].'", "'.$_POST['plant_price'].'", "'.$_POST['item_type'].'", "'.$_POST['image_url'].'", "'.$_SESSION['log-in-user'].'")';
-                        // echo $q;
                         $result = mysqli_query($con, $q);
                         echo '<font style = "color: green">';
                         echo $_POST['plant_name']." added, under the name -".$_SESSION['log-in-user'];
                         echo '<font>';
-
-
                     }
                     $actual_url = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                     if($actual_url == "https://peacelily.ml/")
                     {
                         echo "<hr>";
-                        echo "This is the home page";
-                        echo "<br>";
-                        $products=25;
-                        $links = array(
-                            "https://images-na.ssl-images-amazon.com/images/I/71agbaAe8OL._CR0,204,1224,1224_UX256.jpg",
-                            "https://pics.davesgarden.com/pics/2008/12/15/critterologist/c3972d.jpg",
-                            "https://images-na.ssl-images-amazon.com/images/I/71VGepIWH+L._CR0,204,1224,1224_UX256.jpg",
-                            "https://www.fs.fed.us/wildflowers/beauty/columbines/images/multiple_columbines.jpg",
-                            "https://images-na.ssl-images-amazon.com/images/I/7158e+kRwRL._CR0,204,1224,1224_UX256.jpg",
-                            "https://www.gardenbythesea.org/site/assets/files/2071/mg_4638_nursery_succulents_sm.256x256.jpg",
-                            "https://www.traditionalmedicinals.com/wp-content/uploads/2017/02/TM_PlantSelects_600x600_Licorice-256x256.jpg",
-                            "https://pi.tedcdn.com/r/pf.tedcdn.com/images/playlists/talks-to-celebrate-spring_601287.jpg?quality=89&w=256",
-                            "https://learn.livingdirect.com/wp-content/uploads/2016/03/plant-identifier-app.jpg"
-                        );
-                        $index = rand(1,8);
-                        for($i=0;$i<$products;++$i)
-                        {
-                            $index = rand(0,5);
-                            echo '
-
-
-
-                                    <div style = "height: 120px; border: 1px solid black; width: 100px; float: left; margin-right: 10px; margin-top: 10px">
-
-                                        <a href = "#"> 
-                                            <img src = '.$links[$index].'
-                                            height = "100px" width = "100px">
-                                        </a>
-                                        Price: ₹'.($index*100).'
-                                    </div> 
-
-
-
-
-                            ';
-                        }
+                        $con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+                        if (mysqli_connect_errno())
+							echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						$q = 'SELECT * FROM plant_table';
+						$result = mysqli_query($con, $q);
+						echo 'Done';
+						while($row = $result->fetch_assoc())
+						{
+							$name = $row['name'];
+							$price = $row['price'];
+							$link = $row['url'];
+							$id = $row['plant_id'];
+							echo '
+			                                    <div style = "height: 120px; border: 1px solid black; width: 100px; float: left; margin-right: 10px; margin-top: 10px">
+			                                        <a href = "https://peacelily.ml/?id='.$id.'"> 
+			                                            <img src = '.$link.'
+			                                            height = "100px" width = "100px">
+			                                        </a>
+			                                        Price: ₹'.$price.'
+			                                    </div> 
+			                            ';
+													
+						}
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
+						
                     }
+
+
+                  	if(isset($_GET['id']))
+                  	{
+                  		echo "<hr>";
+                  		$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+                        if (mysqli_connect_errno())
+							echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						$q = 'SELECT * FROM plant_table WHERE plant_id = '.$_GET['id'];
+						$result = mysqli_query($con, $q);
+						$row = $result->fetch_assoc();
+						echo 
+						'
+							<div style = "float:left">
+								<img style = "padding: 20px"src = '.$row["url"].' height = 200px width = 200px>
+							</div>
+							<div style = "float:left;margin-left:10%">
+								<h1>
+										Name : '.$row['name'].'
+										<br><br>
+										Price: ₹'.$row['price'].'
+								</h1>
+							<div>
+							<br>
+							<a href = ""> Buy now </a>
+						';
+
+                  	}
 
                 ?>
             </center>
         </div>
 
-        <div class="bottom">
+        <div class="bottom1">
             <center>
                 <?php
-                    if($_SERVER[REQUEST_URI]!="/?query=discussion")
-                    {
-                    function getUserIpAddr()
-                    {
-                        if(!empty($_SERVER['HTTP_CLIENT_IP']))
-                            $ip = $_SERVER['HTTP_CLIENT_IP'];
-                        elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-                            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-                        else
-                            $ip = $_SERVER['REMOTE_ADDR'];
-                        return (string)$ip;
-                    }
-                    $a = getUserIpAddr();
-                    $i = explode(",", $a);
-                    echo "<br> <b> Your IP 😉 : </b>".$i[0]."</br>";
-                    echo 'PeaceLily &copy; - made with ❤️ by Abhinav';
-                    }
+                    // if($_SERVER[REQUEST_URI]!="/?query=discussion")
+                    // {
+                    // function getUserIpAddr()
+                    // {
+                    //     if(!empty($_SERVER['HTTP_CLIENT_IP']))
+                    //         $ip = $_SERVER['HTTP_CLIENT_IP'];
+                    //     elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+                    //         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                    //     else
+                    //         $ip = $_SERVER['REMOTE_ADDR'];
+                    //     return (string)$ip;
+                    // }
+                    // $a = getUserIpAddr();
+                    // $i = explode(",", $a);
+                    // echo "<br> <b> Your IP 😉 : </b>".$i[0]."</br>";
+                    // echo 'PeaceLily &copy; - made with ❤️ by Abhinav';
+                    // }
                 ?>
             </center>
         </div>
-
         <div class="sign">
             <center>
-               
                <?php
-               
-
                 if( !isset($_SESSION['log-in-user']))
                 {
                     echo '<a href = "https://peacelily.ml/?query=sign-in"> Sign-In </a>
@@ -511,15 +513,30 @@
                 {    
                     echo "<h2> 𝓗𝓲 ".str_repeat('&nbsp;', 2).$_SESSION['log-in-user']."</h2>";
                     if(!isset($_SESSION['vip_loged_in']))
-                    {    
-                        echo 
-                            '
-                                <a href = "https://peacelily.ml/?query=view-portal"> 
-                                    <font style = "color: green">  
-                                        View Portal 
+                    {   
+                    	if($_SESSION['user_type'] == "Seller") 
+                        {
+                        	echo 
+                                '
+                                    <a href = "https://peacelily.ml/?query=view-portal"> 
+                                        <font style = "color: green">  
+                                            View Portal 
+                                        </font> 
+                                    </a>
+                                ';
+                        }
+                        else if($_SESSION['user_type'] == "Customer")
+                        {
+                        	echo 
+                        	'
+                        		<a href = "https://peacelily.ml?query=orders">
+                        			<font style = "color: green">  
+                                         Orders
                                     </font> 
                                 </a>
-                            ';
+                        	';
+                        }
+
                     }
                     else 
                     {
@@ -543,8 +560,8 @@
                         }
                     }
                 }
-
                 ?>
+
             </center>
         </div>
     </body>
