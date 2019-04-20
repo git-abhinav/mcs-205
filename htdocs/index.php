@@ -155,7 +155,28 @@
                         	echo "<hr>";
                         	if($_SESSION['user_type'] == "Customer")
                         	{
-                        		echo 'Checking your orders';	
+
+                        		$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+		                        if (mysqli_connect_errno())
+									echo "Failed to connect to MySQL: " . mysqli_connect_error();
+								$q = 'SELECT * FROM order_table WHERE buyer_name = "'.$_SESSION['log-in-user'].'";';
+
+								$result = mysqli_query($con,$q);
+
+								
+
+								while ($row = $result->fetch_assoc()) 
+								{	
+									$all_plants = mysqli_query($con,'SELECT name, url from plant_table WHERE plant_id = "'.$row['plant_id'].'"');
+									$all_plants = $all_plants->fetch_assoc();
+									echo 
+									    '
+									    	<h2>
+									    		 Name - '.$all_plants['name'].' <img src = "'.$all_plants['url'].'" height = 100px width = 100px>
+									    	<h2>
+									    ';
+									echo "<br>";
+								}
 							}
                         	else
                         	{
@@ -201,10 +222,21 @@
                             $_SESSION['log-in-user'] = $u;
                             $row = $result->fetch_assoc();
                             $_SESSION['user_type'] = $row['account_type'];
-                            echo '<h1>'.$_SESSION['user_type'].'</h1>';
-                            echo '
-                                <a href = "https://peacelily.ml/?query=view-portal"> Click for client area </a>
-                            ';  
+                            // echo '<h1>'.$_SESSION['user_type'].'</h1>';
+                            if($_SESSION['user_type'] == "Seller")
+	                        {    
+	                        	echo 
+    	                        	'
+    	                                <a href = "https://peacelily.ml/?query=view-portal"> Click for client area </a>
+            	                    ';
+            	            }
+	                        if($_SESSION['user_type'] == "Customer")
+	                        {	
+	                        	echo 
+     	                        	'
+     	                        		<a href = "https://peacelily.ml?query=orders"> View Orders </a>
+     	                        	'; 
+     	                    } 
                             
                         }
                         else{
@@ -332,7 +364,72 @@
                     else if($_REQUEST['btn_submit']=="View Orders")
                     {
                         include("view-portal.php");
-                        print "You pressed Button 2";
+                        $con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+                        if (mysqli_connect_errno())
+							echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						$q = 'SELECT * FROM order_table WHERE seller_name = "'.$_SESSION['log-in-user'].'";';
+						$result = mysqli_query($con,$q);
+						echo "<hr>";
+						echo '
+
+								<font style="col:green">
+                                    <div style = "width:60%;height:10%">
+                                        <div style = "width:30%;float:left">
+                                            <font style = "color: black">
+                                                <h3>Imgage</h3>
+                                            </font>
+                                        </div>
+                                        <div style = "width:35%; text-allign:center;float:left">
+                                            <font style = "color: black">
+                                                <h3>Name</h3>
+                                            </font>
+                                        </div>
+                                        <div style = "width:30%;float:left">
+                                            <font style = "color: black">
+                                                <h3>Address</h3>
+                                            </font>
+                                        </div>
+                                    </div>
+                                </font>
+                                <br>
+
+							';
+						while($row = $result->fetch_assoc())
+						{
+
+							$all_plants = mysqli_query($con,'SELECT name, url from plant_table WHERE plant_id = "'.$row['plant_id'].'"');
+							$all_plants = $all_plants->fetch_assoc();
+							echo '
+
+								<font style="col:green">
+                                    <div style = "width:60%;height:10%">
+                                        <div style = "width:30%;float:left">
+                                            <font style = "color: black">
+                                                <h3> <img src = "'.$all_plants['url'].'" height = 50px width = 50px></h3>
+                                            </font>
+                                        </div>
+                                        <div style = "width:35%; text-allign:center;float:left">
+                                            <font style = "color: black">
+                                                <h3>'.$row['buyer_name'].'</h3>
+                                            </font>
+                                        </div>
+                                        <div style = "width:30%;float:left">
+                                            <font style = "color: black">
+                                                <h3>'.$row['buyer_address'].'</h3>
+                                            </font>
+                                        </div>
+                                    </div>
+                                </font>
+                                <br>
+                                <br>
+
+
+							';
+
+						}
+
+
+                        
                     }
                     else if($_REQUEST['btn_submit'] == "Your plants")
                     {
@@ -416,7 +513,6 @@
 							echo "Failed to connect to MySQL: " . mysqli_connect_error();
 						$q = 'SELECT * FROM plant_table';
 						$result = mysqli_query($con, $q);
-						echo 'Done';
 						while($row = $result->fetch_assoc())
 						{
 							$name = $row['name'];
@@ -462,11 +558,99 @@
 								<h1>
 										Name : '.$row['name'].'
 										<br><br>
-										Price: ₹'.$row['price'].'
+										Price : 
+											<font style="color:green">₹'.$row['price'].'
+											</font>
+										<br>
 								</h1>
+								
 							<div>
+							Sold By : '.$row['added_by'].'
 							<br>
-							<a href = ""> Buy now </a>
+						';
+						if(!isset($_SESSION["log-in-user"]))
+						{
+							echo "Sign-In";
+							echo "To buy";
+							include("sign-in.php");
+						}
+						else
+						{
+							echo "<br><br>";
+							echo '
+								<a href = "https://peacelily.ml/?buy-now='.$row['plant_id'].'"> Buy now </a>
+							';
+						}
+
+                  	}
+                  	if(isset($_GET['buy-now']))
+                  	{
+                  		echo "<hr>";
+                  		$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+                        if (mysqli_connect_errno())
+							echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						$q = 'SELECT * FROM plant_table WHERE plant_id = '.$_GET['buy-now'];
+						$result1 = mysqli_query($con, $q);
+						$row1 = $result1->fetch_assoc();
+
+						echo '
+							<div style = "float:left">
+								<img style = "padding: 20px"src = '.$row1["url"].' height = 200px width = 200px>
+							</div>
+						';
+
+
+
+						echo "<br>";
+						echo "<h1>".$row1['name']."</h1>";
+						echo '
+							<div style="margin-top:100px">
+								<form action = "index.php" method = POST>
+									Name : <input type = "text" name = "buyer_name" required = TRUE>
+									<br>
+									Contact : <input type = "number" name = "buyer_number" required = TRUE>
+									<br>
+									Address : <textarea name = "buyer_address"> </textarea>
+									<input type = "text" name = "buyer_plant_id" value = '.$_GET['buy-now'].' hidden = TRUE>
+									<input type = "text" name = "seller_name" value = '.$row1['added_by'].' hidden = TRUE>
+									<br> 
+									<input type ="text" value = "process-buyer-request" name ="process-buyer-request" hidden = TRUE>
+									<input type = "text" name = "plant_id" value = '.$row1['plant_id'].' hidden = TRUE>
+									<br>
+									<input type = "submit" value = "Place Order">
+								</form>
+							</div>
+						';
+                  	}
+
+                  	if(isset($_POST['process-buyer-request']))
+                  	{
+                  		echo "<hr>";
+                  		$buyer_name    = $_POST['buyer_name'];
+                  		$buyer_number  = $_POST['buyer_number'];
+                  		$buyer_address = $_POST['buyer_address'];
+                  		$seller_name   = $_POST['seller_name'];
+                  		$plant_id      = $_POST['plant_id'];
+                  		$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+                        if (mysqli_connect_errno())
+							echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						$q = '
+								INSERT INTO order_table
+							  	(buyer_name, buyer_number, buyer_address, seller_name, plant_id) 
+							  	VALUES("'.$_SESSION['log-in-user'].'", "'.$buyer_number.'", "'.$buyer_address.'", "'.$seller_name.'", "'.$plant_id .'")
+							 ';
+						// echo $q;
+						$result1 = mysqli_query($con, $q);
+						echo 
+							'
+								<font style = "color: green">
+									<h1>
+										Order placed
+									</h1>
+								</font>
+							';
+						echo '
+							<a href = "https://PeaceLily.ml/?query=orders"> View Your Orders </a>
 						';
 
                   	}
