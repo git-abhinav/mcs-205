@@ -41,21 +41,21 @@
                 </h2>
                 <hr>
                 <br><br>
-                <a href="#"> Buy plants </a>
+                <a href="https://peacelily.ml/?query=plants"> Buy plants </a>
                 <br><br><br>
-                <a href="#"> Buy Seeds </a>
+                <a href="https://peacelily.ml/?query=seeds"> Buy Seeds </a>
                 <br><br><br>
-                <a href="#"> Buy Pots </a>
+                <a href="https://peacelily.ml/?query=pots"> Buy Pots </a>
                 <br><br><br>
-                <a href="#"> Buy Compost </a>
+                <a href="https://peacelily.ml/?query=compost"> Buy Compost </a>
                 <br><br><br>
-                <a href="#"> Buy Perlite </a>
+                <a href="https://peacelily.ml/?query=perlite"> Buy Perlite </a>
                 <br><br><br>
-                <a href="#"> Buy Vermiculite </a>
+                <a href="https://peacelily.ml/?query=vermiculite"> Buy Vermiculite </a>
                 <br><br><br>
-                <a href="#"> Buy Potting Mix</a>
+                <a href="https://peacelily.ml/?query=potting_mix"> Buy Potting Mix</a>
                 <br><br><br>
-                <a href="#"> Buy Tools </a>
+                <a href="https://peacelily.ml/?query=tools"> Buy Tools </a>
             </center>
         </div>
         <div class="right">
@@ -187,6 +187,257 @@
                         		include("sign-in.php");
                         	}
                         }
+
+
+                        /*
+                        <a href="https://peacelily.ml/?query=plants"> Buy plants </a>
+                		<br><br><br>
+		                <a href="https://peacelily.ml/?query=seeds"> Buy Seeds </a>
+		                <br><br><br>
+		                <a href="https://peacelily.ml/?query=pots"> Buy Pots </a>
+		                <br><br><br>
+		                <a href="https://peacelily.ml/?query=compost"> Buy Compost </a>
+		                <br><br><br>
+		                <a href="https://peacelily.ml/?query=perlite"> Buy Perlite </a>
+		                <br><br><br>
+		                <a href="https://peacelily.ml/?query=vermiculite"> Buy Vermiculite </a>
+		                <br><br><br>
+		                <a href="https://peacelily.ml/?query=potting_mix"> Buy Potting Mix</a>
+		                <br><br><br>
+		                <a href="https://peacelily.ml/?query=tools"> Buy Tools </a>
+                        */
+
+		                else if($_GET['query'] == "plants")
+		                {
+		                	echo "<hr>";
+		                	echo '<h1>Plants</h1>';
+
+		                	$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+	                        if (mysqli_connect_errno())
+								echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							$q = 'SELECT * FROM plant_table WHERE category = "'."plants".'"';
+							$result = mysqli_query($con, $q);
+							while($row = $result->fetch_assoc())
+							{
+								$name = $row['name'];
+								$price = $row['price'];
+								$link = $row['url'];
+								$id = $row['plant_id'];
+								echo '
+				                                    <div style = "height: 120px; border: 1px solid black; width: 100px; float: left; margin-right: 10px; margin-top: 10px">
+				                                        <a href = "https://peacelily.ml/?id='.$id.'"> 
+				                                            <img src = '.$link.'
+				                                            height = "100px" width = "100px">
+				                                        </a>
+				                                        Price: ₹'.$price.'
+				                                    </div> 
+				                            ';
+														
+							}
+
+
+
+		                }
+		                else if($_GET['query'] == "seeds")
+		                {
+		                	echo "<hr>";
+		                	echo '<h1>Seeds</h1>';	
+
+		                	$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+	                        if (mysqli_connect_errno())
+								echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							$q = 'SELECT * FROM plant_table WHERE category = "'."seeds".'"';
+							$result = mysqli_query($con, $q);
+							while($row = $result->fetch_assoc())
+							{
+								$name = $row['name'];
+								$price = $row['price'];
+								$link = $row['url'];
+								$id = $row['plant_id'];
+								echo '
+				                                    <div style = "height: 120px; border: 1px solid black; width: 100px; float: left; margin-right: 10px; margin-top: 10px">
+				                                        <a href = "https://peacelily.ml/?id='.$id.'"> 
+				                                            <img src = '.$link.'
+				                                            height = "100px" width = "100px">
+				                                        </a>
+				                                        Price: ₹'.$price.'
+				                                    </div> 
+				                            ';
+														
+							}
+
+		                }
+		                else if($_GET['query'] == "pots")
+		                {
+		                	echo "<hr>";
+		                	echo '<h1>Pots</h1>';
+
+		                	$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+	                        if (mysqli_connect_errno())
+								echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							$q = 'SELECT * FROM plant_table WHERE category = "'."pots".'"';
+							$result = mysqli_query($con, $q);
+							while($row = $result->fetch_assoc())
+							{
+								$name = $row['name'];
+								$price = $row['price'];
+								$link = $row['url'];
+								$id = $row['plant_id'];
+								echo '
+				                                    <div style = "height: 120px; border: 1px solid black; width: 100px; float: left; margin-right: 10px; margin-top: 10px">
+				                                        <a href = "https://peacelily.ml/?id='.$id.'"> 
+				                                            <img src = '.$link.'
+				                                            height = "100px" width = "100px">
+				                                        </a>
+				                                        Price: ₹'.$price.'
+				                                    </div> 
+				                            ';
+														
+							}
+
+		                }
+		                else if($_GET['query'] == "compost")
+		                {
+		                	echo "<hr>";
+		                	echo '<h1>Compost</h1>';
+		                	$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+	                        if (mysqli_connect_errno())
+								echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							$q = 'SELECT * FROM plant_table WHERE category = "'."compost".'"';
+							$result = mysqli_query($con, $q);
+							while($row = $result->fetch_assoc())
+							{
+								$name = $row['name'];
+								$price = $row['price'];
+								$link = $row['url'];
+								$id = $row['plant_id'];
+								echo '
+				                                    <div style = "height: 120px; border: 1px solid black; width: 100px; float: left; margin-right: 10px; margin-top: 10px">
+				                                        <a href = "https://peacelily.ml/?id='.$id.'"> 
+				                                            <img src = '.$link.'
+				                                            height = "100px" width = "100px">
+				                                        </a>
+				                                        Price: ₹'.$price.'
+				                                    </div> 
+				                            ';
+														
+							}
+
+		                }
+		                else if($_GET['query'] == "perlite")
+		                {
+		                	echo "<hr>";
+		                	echo '<h1>Perlite</h1>';
+
+		                	$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+	                        if (mysqli_connect_errno())
+								echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							$q = 'SELECT * FROM plant_table WHERE category = "'."perlite".'"';
+							$result = mysqli_query($con, $q);
+							while($row = $result->fetch_assoc())
+							{
+								$name = $row['name'];
+								$price = $row['price'];
+								$link = $row['url'];
+								$id = $row['plant_id'];
+								echo '
+				                                    <div style = "height: 120px; border: 1px solid black; width: 100px; float: left; margin-right: 10px; margin-top: 10px">
+				                                        <a href = "https://peacelily.ml/?id='.$id.'"> 
+				                                            <img src = '.$link.'
+				                                            height = "100px" width = "100px">
+				                                        </a>
+				                                        Price: ₹'.$price.'
+				                                    </div> 
+				                            ';
+														
+							}
+
+		                }
+		                else if($_GET['query'] == "vermiculite")
+		                {
+		                	echo "<hr>";
+		                	echo '<h1>Vermiculite</h1>';
+
+		                	$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+	                        if (mysqli_connect_errno())
+								echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							$q = 'SELECT * FROM plant_table WHERE category = "'."Vermiculite".'"';
+							$result = mysqli_query($con, $q);
+							while($row = $result->fetch_assoc())
+							{
+								$name = $row['name'];
+								$price = $row['price'];
+								$link = $row['url'];
+								$id = $row['plant_id'];
+								echo '
+				                                    <div style = "height: 120px; border: 1px solid black; width: 100px; float: left; margin-right: 10px; margin-top: 10px">
+				                                        <a href = "https://peacelily.ml/?id='.$id.'"> 
+				                                            <img src = '.$link.'
+				                                            height = "100px" width = "100px">
+				                                        </a>
+				                                        Price: ₹'.$price.'
+				                                    </div> 
+				                            ';
+														
+							}
+
+		                }
+		                else if($_GET['query'] == "potting_mix")
+		                {
+		                	echo "<hr>";
+		                	echo '<h1>Potting Mix</h1>';
+		                	$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+	                        if (mysqli_connect_errno())
+								echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							$q = 'SELECT * FROM plant_table WHERE category = "'."potting_mix".'"';
+							$result = mysqli_query($con, $q);
+							while($row = $result->fetch_assoc())
+							{
+								$name = $row['name'];
+								$price = $row['price'];
+								$link = $row['url'];
+								$id = $row['plant_id'];
+								echo '
+				                                    <div style = "height: 120px; border: 1px solid black; width: 100px; float: left; margin-right: 10px; margin-top: 10px">
+				                                        <a href = "https://peacelily.ml/?id='.$id.'"> 
+				                                            <img src = '.$link.'
+				                                            height = "100px" width = "100px">
+				                                        </a>
+				                                        Price: ₹'.$price.'
+				                                    </div> 
+				                            ';
+														
+							}
+
+		                }
+		                else if($_GET['query'] == "tools")
+		                {
+		                	echo "<hr>";
+		                	echo '<h1>To`ols</h1>';
+		                	$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+	                        if (mysqli_connect_errno())
+								echo "Failed to connect to MySQL: " . mysqli_connect_error();
+							$q = 'SELECT * FROM plant_table WHERE category = "'."tools".'"';
+							$result = mysqli_query($con, $q);
+							while($row = $result->fetch_assoc())
+							{
+								$name = $row['name'];
+								$price = $row['price'];
+								$link = $row['url'];
+								$id = $row['plant_id'];
+								echo '
+				                                    <div style = "height: 120px; border: 1px solid black; width: 100px; float: left; margin-right: 10px; margin-top: 10px">
+				                                        <a href = "https://peacelily.ml/?id='.$id.'"> 
+				                                            <img src = '.$link.'
+				                                            height = "100px" width = "100px">
+				                                        </a>
+				                                        Price: ₹'.$price.'
+				                                    </div> 
+				                            ';
+														
+							}
+
+		                }
                     }
                     if(isset($_POST['process_sign_up']) == "yes")
                     {
