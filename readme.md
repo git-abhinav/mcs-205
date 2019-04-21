@@ -20,7 +20,7 @@
 ## Types Of accounts on PeaceLily.ml
 > More features in premium than regular and check-out.
 1. Premium account
-2. ~~Regular account~~
+2. Regular account
 3. Check-Out account
 ## Framework and Technologies to be used
 * Server-Side : PHP(generate dynamic page content, sends and receives cookies, well documented and tested code readily  available)
@@ -30,3 +30,8 @@
 ## Security measures 
 * This site has HTTPS.
 * Runs through tunneling provided through cloudfare.
+
+
+## Tables relation
+![Tables](tables.png)
+
