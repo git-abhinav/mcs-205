@@ -270,6 +270,12 @@
 							while($row = $result->fetch_assoc())
 							{
 								$name = $row['name'];
+								if(!$row['name'])
+				                {	
+				                	echo "<h1>";
+				                	echo "No item in this category";
+									echo "</h1>";
+								}
 								$price = $row['price'];
 								$link = $row['url'];
 								$id = $row['plant_id'];
@@ -282,6 +288,7 @@
 				                                        Price: ₹'.$price.'
 				                                    </div> 
 				                            ';
+				                
 														
 							}
 
@@ -301,6 +308,12 @@
 							while($row = $result->fetch_assoc())
 							{
 								$name = $row['name'];
+								if(!$row['name'])
+				                {	
+				                	echo "<h1>";
+				                	echo "No item in this category";
+									echo "</h1>";
+								}
 								$price = $row['price'];
 								$link = $row['url'];
 								$id = $row['plant_id'];
@@ -313,6 +326,12 @@
 				                                        Price: ₹'.$price.'
 				                                    </div> 
 				                            ';
+				                if(!$row['name'])
+				                {	
+				                	echo "<h1>";
+				                	echo "No item in this category";
+									echo "</h1>";
+								}
 														
 							}
 
@@ -326,10 +345,18 @@
 	                        if (mysqli_connect_errno())
 								echo "Failed to connect to MySQL: " . mysqli_connect_error();
 							$q = 'SELECT * FROM plant_table WHERE category = "'."pots".'"';
+							$flag = "unset";
 							$result = mysqli_query($con, $q);
 							while($row = $result->fetch_assoc())
 							{
+								$flag = "set";
 								$name = $row['name'];
+								if($name=="");
+				                {	
+				                	echo "<h1>";
+				                	echo "No item in this category";
+									echo "</h1>";
+								}
 								$price = $row['price'];
 								$link = $row['url'];
 								$id = $row['plant_id'];
@@ -342,6 +369,12 @@
 				                                        Price: ₹'.$price.'
 				                                    </div> 
 				                            ';
+				                if($flag=="unset")
+				                {	
+				                	echo "<h1>";
+				                	echo "No item in this category";
+									echo "</h1>";
+								}
 														
 							}
 
@@ -984,20 +1017,33 @@
                 <?php
                     // if($_SERVER[REQUEST_URI]!="/?query=discussion")
                     // {
-                    // function getUserIpAddr()
-                    // {
-                    //     if(!empty($_SERVER['HTTP_CLIENT_IP']))
-                    //         $ip = $_SERVER['HTTP_CLIENT_IP'];
-                    //     elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-                    //         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-                    //     else
-                    //         $ip = $_SERVER['REMOTE_ADDR'];
-                    //     return (string)$ip;
-                    // }
-                    // $a = getUserIpAddr();
-                    // $i = explode(",", $a);
+                    function getUserIpAddr()
+                    {
+                        if(!empty($_SERVER['HTTP_CLIENT_IP']))
+                            $ip = $_SERVER['HTTP_CLIENT_IP'];
+                        elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+                            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                        else
+                            $ip = $_SERVER['REMOTE_ADDR'];
+                        return (string)$ip;
+                    }
+                    $a = getUserIpAddr();
+                    $i = explode(",", $a);
                     // echo "<br> <b> Your IP 😉 : </b>".$i[0]."</br>";
                     // echo 'PeaceLily &copy; - made with ❤️ by Abhinav';
+
+     //                $myfile = fopen("logs.txt", "a") or die("Unable to open file!");
+					// $txt = "user id date";
+					// fwrite($myfile, "\n". $txt);
+					// fclose($myfile);
+
+
+                	$myfile = fopen("ips.txt", "a") or die("Unable to open file!");
+					$txt = $i[0];
+					$txt = $txt." Time ".date('Y-m-d H:i:s')."\n";
+					fwrite($myfile, $txt);
+					fclose($myfile)
+
                     // }
                 ?>
             </center>
