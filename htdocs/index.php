@@ -71,13 +71,12 @@
                 	</b> 
                 </a>
                 <br><br><br>
-                <a href="https://peacelily.ml/?query=problems"> Problems </a>
-                <br><br><br>
+                <!-- <a href="https://peacelily.ml/?query=problems"> Problems </a> -->
                 <a href="https://peacelily.ml/?query=discussion"> Discussion </a>
                 <br><br><br>
                 <hr>
                     <h2>
-                        Buys & Sell
+                        More
                     </h2>
                 <hr>
                 <br><br>
@@ -141,6 +140,57 @@
                         else if($_GET['query'] == "discussion")
                         {
                             include("discussion.php");
+                            if(isset($_POST['answer']))
+                            {
+                            	// echo $_POST['answer'];
+                            	// echo "<br>";
+                            	// echo $_POST['question_id'];
+                            	// echo "<br>";
+                            	$con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+		                        if (mysqli_connect_errno())
+									echo "Failed to connect to MySQL: " . mysqli_connect_error();
+
+// 								UPDATE Customers
+// SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+// WHERE CustomerID = 1;
+
+								$q = 'UPDATE question_table SET answer = "'.$_POST['answer'].'"  WHERE question_id = "'.$_POST['question_id'].'"';
+								// echo $q;
+								$result = mysqli_query($con,$q);
+								echo '
+									<a href = "https://peacelily.ml/?query=discussion"> View Discussion </a>
+								';
+
+                            }
+                            if(isset($_POST['view-answer']))
+                            {
+                            	// echo "View answer-".$_POST['question_id'];
+                            	echo 
+	                            	'
+	                            		<font style="color:green">
+	                            			<h2>	
+	                            				Answer is :-
+	                            			</h2>
+	                            		</font>
+
+	                            	';
+
+	                            $con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+		                        if (mysqli_connect_errno())
+									echo "Failed to connect to MySQL: " . mysqli_connect_error();
+								$q = 'SELECT answer FROM question_table WHERE question_id = "'.$_POST['question_id'].'"';
+								$result = mysqli_query($con,$q);
+								$row = $result->fetch_assoc();
+								if($row['answer'])
+									echo $row['answer'];
+								else 
+									echo "No Answer yet";
+
+
+
+
+                            }
+
                         }
                         else if($_GET['query'] == "problems")
                         {
@@ -573,10 +623,29 @@
                     else if(isset($_POST['process_question']))
                     {
                         echo "<hr>";
-                        echo 'Question is asked by - '.$_POST['question_asked_by'];
-                        echo "<br>";
-                        echo 'Question is - '.$_POST['question'];
-                        echo "<br>";
+                        // echo 'Question is asked by - '.$_POST['question_asked_by'];
+                        // echo "<br>";
+                        // echo 'Question is - '.$_POST['question'];
+                        // echo "<br>";
+                        echo '
+                        	<font style = "color:green">
+                        		<h1>
+                        			Adding Question to discussion corner
+                        			<br>
+                        		</h1>
+                        	</font>
+                        	';
+                        $con=mysqli_connect("sql307.epizy.com","epiz_23513917","L9eIPqKsKjdjTN","epiz_23513917_plant_database");
+                        if (mysqli_connect_errno())
+							echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						$q = 'INSERT INTO question_table(question, asked_by) VALUES("'.$_POST['question'].'", "'.$_SESSION['log-in-user'].'")';
+						$result = mysqli_query($con,$q);
+						echo "Question added";
+						echo '
+							<a href = "https://peacelily.ml/?query=discussion"> View Discussion </a>
+						';
+						// echo $q;
+
                     }
 
                     if($_REQUEST['btn_submit']=="Add products")
