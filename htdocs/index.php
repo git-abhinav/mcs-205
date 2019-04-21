@@ -1040,7 +1040,8 @@
 
                 	$myfile = fopen("ips.txt", "a") or die("Unable to open file!");
 					$txt = $i[0];
-					$txt = $txt." Time ".date('Y-m-d H:i:s')."\n";
+					date_default_timezone_set("Asia/Calcutta");
+					$txt = "IP address -> ".$txt.", Time -> ".date('Y-m-d H:i:s')."\n";
 					fwrite($myfile, $txt);
 					fclose($myfile)
 
