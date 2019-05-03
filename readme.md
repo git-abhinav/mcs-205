@@ -25,7 +25,6 @@
 ## Framework and Technologies to be used
 * Server-Side : PHP(generate dynamic page content, sends and receives cookies, well documented and tested code readily  available)
 * Proper session management to provide hastle free experience for the seller and VIP users on the website.
-* ~~For UI - Bootstrap(ease of use, well documented code readily available)~~
 
 ## Security measures 
 * This site has HTTPS.
